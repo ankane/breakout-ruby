@@ -2,7 +2,7 @@
 
 :fire: [BreakoutDetection](https://github.com/twitter/BreakoutDetection) for Ruby
 
-Learn more about [how it works](https://blog.twitter.com/engineering/en_us/a/2014/breakout-detection-in-the-wild)
+Learn [how it works](https://blog.twitter.com/engineering/en_us/a/2014/breakout-detection-in-the-wild)
 
 [![Build Status](https://github.com/ankane/breakout/workflows/build/badge.svg?branch=master)](https://github.com/ankane/breakout/actions)
 
