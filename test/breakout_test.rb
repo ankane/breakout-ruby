@@ -51,6 +51,8 @@ class BreakoutTest < Minitest::Test
       1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0
     ]
     assert_equal [10], Breakout.detect(series, min_size: 5)
+    assert_empty Breakout.detect(series, min_size: 11)
+    assert_empty Breakout.detect(series, min_size: 11, method: "amoc")
   end
 
   def test_bad_method
