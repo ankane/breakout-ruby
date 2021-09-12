@@ -1,7 +1,7 @@
 /*
 Robust estimation of 2[mean(X)-mean(Y)]^2 time normalization factor
 This is the E-Divisive E-statistic when alpha = 2
-Instead of calculating mean(X) we calculate median(X), and similarly for Y
+Instead of calculating mean(X), we calculate median(X), and similarly for Y
 */
 
 #include <algorithm>

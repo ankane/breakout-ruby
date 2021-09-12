@@ -1,7 +1,7 @@
 /*
-  Penalizes based on percent chagne in the statistic value.
-  Linear penalty means that each new breakout must result in an at least X% increast
-  Quadratic penalty means that each new brekaout must result in at least an (X*k)% increase for k breakouts
+  Penalizes based on percent change in the statistic value.
+  Linear penalty means that each new breakout must result in an at least X% increase
+  Quadratic penalty means that each new breakout must result in at least an (X*k)% increase for k breakouts
 */
 
 #include <algorithm>
