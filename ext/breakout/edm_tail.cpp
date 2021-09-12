@@ -355,7 +355,6 @@ void BackwardUpdate(std::vector<double>& Z, Information& info, int& tau1, double
       index /= 2;
     }
   }
-  double qb;
   // Move tau2 from the end of the time series to the front.
   // Update the statistic value along the way
   tau2 = N;
@@ -366,7 +365,7 @@ void BackwardUpdate(std::vector<double>& Z, Information& info, int& tau1, double
       --info.B[index];
       index /= 2;
     }
-    qb = std::pow(GetQuantile(info.B, quant), alpha);
+    double qb = std::pow(GetQuantile(info.B, quant), alpha);
 
     double stat = 2 * qc - qa - qb;
     stat *= (double)(tau2 - tau1) * tau1 / tau2;

@@ -50,7 +50,7 @@ std::vector<int> EDM_multi(const std::vector<double>& Z, int min_size = 24, doub
     for (int i = min_size - 1; i < s; ++i)
       insert_element(right_min, right_max, Z[i]);
 
-    // Iterate over possible locations for the penultiamte change
+    // Iterate over possible locations for the penultimate change
     for (int t = min_size; t < s - min_size + 1; ++t) { // modify limits to deal with min_size
       insert_element(left_min, left_max, Z[t - 1]);     // insert element into left tree
       remove_element(right_min, right_max, Z[t - 1]);   // remove element from right tree
