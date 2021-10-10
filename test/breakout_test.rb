@@ -55,6 +55,34 @@ class BreakoutTest < Minitest::Test
     assert_empty Breakout.detect(series, min_size: 11, method: "amoc")
   end
 
+  def test_bad_min_size
+    error = assert_raises(ArgumentError) do
+      Breakout.detect([], min_size: 1)
+    end
+    assert_equal "min_size must be at least 2", error.message
+  end
+
+  def test_beta_percent
+    error = assert_raises(ArgumentError) do
+      Breakout.detect([], beta: 0.008, percent: 0.5)
+    end
+    assert_equal "beta and percent cannot be passed together", error.message
+  end
+
+  def test_bad_alpha
+    error = assert_raises(ArgumentError) do
+      Breakout.detect([], alpha: 3)
+    end
+    assert_equal "alpha must be between 0 and 2", error.message
+  end
+
+  def test_bad_degree
+    error = assert_raises(ArgumentError) do
+      Breakout.detect([], degree: 3)
+    end
+    assert_equal "degree must be 0, 1, or 2", error.message
+  end
+
   def test_bad_method
     error = assert_raises(ArgumentError) do
       Breakout.detect([], method: "bad")
