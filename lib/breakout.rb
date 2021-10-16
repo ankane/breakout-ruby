@@ -10,7 +10,7 @@ module Breakout
     raise ArgumentError, "beta and percent cannot be passed together" unless beta.nil? || percent.nil?
     raise ArgumentError, "alpha must be between 0 and 2" if alpha < 0 || alpha > 2
     raise ArgumentError, "degree must be 0, 1, or 2" unless [0, 1, 2].include?(degree)
-    raise ArgumentError, "Bad method" unless ["amoc", "multi"].include?(method)
+    raise ArgumentError, "method must be amoc or multi" unless ["amoc", "multi"].include?(method)
 
     return [] if series.size < min_size
 

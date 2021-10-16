@@ -87,7 +87,7 @@ class BreakoutTest < Minitest::Test
     error = assert_raises(ArgumentError) do
       Breakout.detect([], method: "bad")
     end
-    assert_equal "Bad method", error.message
+    assert_equal "method must be amoc or multi", error.message
   end
 
   def series
