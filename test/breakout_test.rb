@@ -90,6 +90,18 @@ class BreakoutTest < Minitest::Test
     assert_equal "method must be amoc or multi", error.message
   end
 
+  def test_plot_hash
+    today = Date.today
+    series = self.series.map.with_index.to_h { |v, i| [today + i, v] }
+    breakouts = Breakout.detect(series, min_size: 5)
+    assert_kind_of Vega::LiteChart, Breakout.plot(series, breakouts)
+  end
+
+  def test_plot_array
+    breakouts = Breakout.detect(series, min_size: 5)
+    assert_kind_of Vega::LiteChart, Breakout.plot(series, breakouts)
+  end
+
   def series
     [
       3.0, 1.0, 2.0, 3.0, 2.0, 1.0, 1.0, 2.0, 2.0, 3.0,

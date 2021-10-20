@@ -60,6 +60,20 @@ Breakout.detect(
 )
 ```
 
+## Plotting [unreleased]
+
+Add [Vega](https://github.com/ankane/vega) to your application’s Gemfile:
+
+```ruby
+gem 'vega'
+```
+
+And use:
+
+```ruby
+Breakout.plot(series, breakouts)
+```
+
 ## Credits
 
 This library uses the C++ code from the [BreakoutDetection](https://github.com/twitter/BreakoutDetection) R package and is available under the same license.
