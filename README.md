@@ -1,10 +1,10 @@
-# Breakout
+# Breakout Ruby
 
 :fire: [BreakoutDetection](https://github.com/twitter/BreakoutDetection) for Ruby
 
 Learn [how it works](https://blog.twitter.com/engineering/en_us/a/2014/breakout-detection-in-the-wild)
 
-[![Build Status](https://github.com/ankane/breakout/workflows/build/badge.svg?branch=master)](https://github.com/ankane/breakout/actions)
+[![Build Status](https://github.com/ankane/breakout-ruby/workflows/build/badge.svg?branch=master)](https://github.com/ankane/breakout-ruby/actions)
 
 ## Installation
 
@@ -84,22 +84,22 @@ This library uses the C++ code from the [BreakoutDetection](https://github.com/t
 
 ## History
 
-View the [changelog](https://github.com/ankane/breakout/blob/master/CHANGELOG.md)
+View the [changelog](https://github.com/ankane/breakout-ruby/blob/master/CHANGELOG.md)
 
 ## Contributing
 
 Everyone is encouraged to help improve this project. Here are a few ways you can help:
 
-- [Report bugs](https://github.com/ankane/breakout/issues)
-- Fix bugs and [submit pull requests](https://github.com/ankane/breakout/pulls)
+- [Report bugs](https://github.com/ankane/breakout-ruby/issues)
+- Fix bugs and [submit pull requests](https://github.com/ankane/breakout-ruby/pulls)
 - Write, clarify, or fix documentation
 - Suggest or add new features
 
 To get started with development:
 
 ```sh
-git clone https://github.com/ankane/breakout.git
-cd breakout
+git clone https://github.com/ankane/breakout-ruby.git
+cd breakout-ruby
 bundle install
 bundle exec rake compile
 bundle exec rake test

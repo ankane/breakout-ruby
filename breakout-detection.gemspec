@@ -4,7 +4,7 @@ Gem::Specification.new do |spec|
   spec.name          = "breakout-detection"
   spec.version       = Breakout::VERSION
   spec.summary       = "Breakout detection for Ruby"
-  spec.homepage      = "https://github.com/ankane/breakout"
+  spec.homepage      = "https://github.com/ankane/breakout-ruby"
   spec.license       = "GPL-2.0-or-later"
 
   spec.author        = "Andrew Kane"
