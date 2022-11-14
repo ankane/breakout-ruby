@@ -11,7 +11,7 @@ Learn [how it works](https://blog.twitter.com/engineering/en_us/a/2014/breakout-
 Add this line to your application’s Gemfile:
 
 ```ruby
-gem 'breakout-detection'
+gem "breakout-detection"
 ```
 
 ## Getting Started
