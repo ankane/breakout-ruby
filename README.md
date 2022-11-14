@@ -65,7 +65,7 @@ Breakout.detect(
 Add [Vega](https://github.com/ankane/vega) to your application’s Gemfile:
 
 ```ruby
-gem 'vega'
+gem "vega"
 ```
 
 And use:
