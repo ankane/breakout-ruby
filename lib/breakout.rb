@@ -2,7 +2,7 @@
 require "breakout/ext"
 
 # modules
-require "breakout/version"
+require_relative "breakout/version"
 
 module Breakout
   class << self

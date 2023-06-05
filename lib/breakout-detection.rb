@@ -1,1 +1,1 @@
-require "breakout"
+require_relative "breakout"
