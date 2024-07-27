@@ -4,7 +4,7 @@
 
 Learn [how it works](https://blog.twitter.com/engineering/en_us/a/2014/breakout-detection-in-the-wild)
 
-[![Build Status](https://github.com/ankane/breakout-ruby/workflows/build/badge.svg?branch=master)](https://github.com/ankane/breakout-ruby/actions)
+[![Build Status](https://github.com/ankane/breakout-ruby/actions/workflows/build.yml/badge.svg)](https://github.com/ankane/breakout-ruby/actions)
 
 ## Installation
 
