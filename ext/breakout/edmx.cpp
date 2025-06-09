@@ -15,7 +15,7 @@ double getMedian(const std::priority_queue<double, std::vector<double>, std::gre
 
 std::vector<int> EDMX(const std::vector<double>& Z, int min_size = 24, double alpha = 2) {
 
-  alpha = 2; // Not used, just here for uniform funciton signature
+  alpha = 2; // Not used, just here for uniform function signature
 
   std::priority_queue<double> LeftMax;
   std::priority_queue<double, std::vector<double>, std::greater<double>> LeftMin;
