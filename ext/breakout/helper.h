@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <cmath>
+#include <functional>
 #include <set>
 
 double get_median(const std::multiset<double>&, const std::multiset<double, std::greater<double>>&);
