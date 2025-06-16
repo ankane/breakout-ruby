@@ -6,6 +6,7 @@ Instead of calculating mean(X), we calculate median(X), and similarly for Y
 
 #include <algorithm>
 #include <cmath>
+#include <functional>
 #include <queue>
 #include <vector>
 
