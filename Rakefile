@@ -14,8 +14,9 @@ Rake::ExtensionTask.new("breakout") do |ext|
 end
 
 task :remove_ext do
-  path = "lib/breakout/ext.bundle"
-  File.unlink(path) if File.exist?(path)
+  Dir["lib/breakout/ext.{bundle,so}"].each do |path|
+    File.unlink(path)
+  end
 end
 
 Rake::Task["build"].enhance [:remove_ext]
