@@ -24,8 +24,9 @@ std::vector<int> EDMX(const std::vector<double>& Z, int min_size = 24, double al
   double stat = -3, stat_best = -3, t1 = 0.0, t2;
   int tau1, tau2;
   int N = Z.size();
-  for (int i = 0; i < min_size - 1; ++i)
+  for (int i = 0; i < min_size - 1; ++i) {
     AddToHeaps(LeftMin, LeftMax, Z.at(i));
+  }
 
   for (tau1 = min_size; tau1 < N - min_size + 1; ++tau1) { // Iterate over breakout locations
     AddToHeaps(LeftMin, LeftMax, Z.at(tau1 - 1));
@@ -34,8 +35,9 @@ std::vector<int> EDMX(const std::vector<double>& Z, int min_size = 24, double al
     double medL = getMedian(LeftMin, LeftMax);
 
     // Add first set of elements to the heaps for the right segment
-    for (std::vector<double>::const_iterator i = Z.begin() + tau1; i != Z.begin() + tau1 + min_size - 1; ++i)
+    for (auto i = Z.begin() + tau1; i != Z.begin() + tau1 + min_size - 1; ++i) {
       AddToHeaps(RightMin, RightMax, *i);
+    }
 
     for (tau2 = tau1 + min_size; tau2 < N + 1; ++tau2) { // Iterate over end of prefix series locations
       AddToHeaps(RightMin, RightMax, Z.at(tau2 - 1));
@@ -65,21 +67,23 @@ std::vector<int> EDMX(const std::vector<double>& Z, int min_size = 24, double al
 
 double getMedian(const std::priority_queue<double, std::vector<double>, std::greater<double>>& m, const std::priority_queue<double>& M) {
 
-  if (m.size() > M.size()) // There are an odd number of observations
+  if (m.size() > M.size()) { // There are an odd number of observations
     return m.top();
-  else if (M.size() > m.size()) // There are an odd number of observations
+  } else if (M.size() > m.size()) { // There are an odd number of observations
     return M.top();
-  else // There are an even number of obersations
+  } else { // There are an even number of obersations
     return (m.top() + M.top()) / 2;
+  }
 }
 
 void AddToHeaps(std::priority_queue<double, std::vector<double>, std::greater<double>>& m, std::priority_queue<double>& M, double x) {
 
   // decide on initial heap to place element into
-  if (m.empty() || x < m.top())
+  if (m.empty() || x < m.top()) {
     M.push(x);
-  else
+  } else {
     m.push(x);
+  }
   // make sure that heaps are balanced
   if (m.size() > M.size() + 1) {
     M.push(m.top());

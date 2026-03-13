@@ -77,7 +77,8 @@ std::vector<int> EDM_multi(const std::vector<double>& Z, int min_size = 24, doub
       }
 
       // calculate statistic value
-      double left_median = get_median(left_min, left_max), right_median = get_median(right_min, right_max);
+      double left_median = get_median(left_min, left_max);
+      double right_median = get_median(right_min, right_max);
       double normalize = ((t - prev.at(t)) * (s - t)) / (std::pow((double)(s - prev.at(t)), 2.0));
       double tmp = F.at(t) + normalize * std::pow(left_median - right_median, 2.0) - beta * G(number.at(t));
       // check for improved optimal statistic value
@@ -92,8 +93,8 @@ std::vector<int> EDM_multi(const std::vector<double>& Z, int min_size = 24, doub
   // obtain list of optimal change point estimates
   std::vector<int> ret;
   int at = n;
-  while (at) {
-    if (prev.at(at)) { // don't insert 0 as a change point estimate
+  while (at != 0) {
+    if (prev.at(at) != 0) { // don't insert 0 as a change point estimate
       ret.push_back(prev.at(at));
     }
     at = prev.at(at);
