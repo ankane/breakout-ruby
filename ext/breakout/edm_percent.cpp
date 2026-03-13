@@ -42,8 +42,8 @@ std::vector<int> EDM_percent(const std::vector<double>& Z, int min_size = 24, do
   std::multiset<double> right_min;
   std::multiset<double> left_min;
   // trees used to store the "lower half" of the considered observations
-  std::multiset<double, std::greater<double>> right_max;
-  std::multiset<double, std::greater<double>> left_max;
+  std::multiset<double, std::greater<>> right_max;
+  std::multiset<double, std::greater<>> left_max;
 
   // Iterate over possible locations for the last change
   for (int s = 2 * min_size; s < n + 1; ++s) {

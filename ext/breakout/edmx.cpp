@@ -10,16 +10,16 @@ Instead of calculating mean(X), we calculate median(X), and similarly for Y
 #include <queue>
 #include <vector>
 
-void AddToHeaps(std::priority_queue<double, std::vector<double>, std::greater<double>>& m, std::priority_queue<double>& M, double x);
+void AddToHeaps(std::priority_queue<double, std::vector<double>, std::greater<>>& m, std::priority_queue<double>& M, double x);
 
-double getMedian(const std::priority_queue<double, std::vector<double>, std::greater<double>>& m, const std::priority_queue<double>& M);
+double getMedian(const std::priority_queue<double, std::vector<double>, std::greater<>>& m, const std::priority_queue<double>& M);
 
 std::vector<int> EDMX(const std::vector<double>& Z, int min_size = 24, double alpha = 2) {
 
   alpha = 2; // Not used, just here for uniform function signature
 
   std::priority_queue<double> LeftMax;
-  std::priority_queue<double, std::vector<double>, std::greater<double>> LeftMin;
+  std::priority_queue<double, std::vector<double>, std::greater<>> LeftMin;
 
   double stat = -3;
   double stat_best = -3;
@@ -35,7 +35,7 @@ std::vector<int> EDMX(const std::vector<double>& Z, int min_size = 24, double al
   for (tau1 = min_size; tau1 < N - min_size + 1; ++tau1) { // Iterate over breakout locations
     AddToHeaps(LeftMin, LeftMax, Z.at(tau1 - 1));
     std::priority_queue<double> RightMax;
-    std::priority_queue<double, std::vector<double>, std::greater<double>> RightMin;
+    std::priority_queue<double, std::vector<double>, std::greater<>> RightMin;
     double medL = getMedian(LeftMin, LeftMax);
 
     // Add first set of elements to the heaps for the right segment
@@ -69,7 +69,7 @@ std::vector<int> EDMX(const std::vector<double>& Z, int min_size = 24, double al
 // for the "larger" and one heap for the "smaller" observations. Simple to update for streaming
 // data ( O(log n) ) and find median ( O(1) ).
 
-double getMedian(const std::priority_queue<double, std::vector<double>, std::greater<double>>& m, const std::priority_queue<double>& M) {
+double getMedian(const std::priority_queue<double, std::vector<double>, std::greater<>>& m, const std::priority_queue<double>& M) {
 
   if (m.size() > M.size()) { // There are an odd number of observations
     return m.top();
@@ -80,7 +80,7 @@ double getMedian(const std::priority_queue<double, std::vector<double>, std::gre
   }
 }
 
-void AddToHeaps(std::priority_queue<double, std::vector<double>, std::greater<double>>& m, std::priority_queue<double>& M, double x) {
+void AddToHeaps(std::priority_queue<double, std::vector<double>, std::greater<>>& m, std::priority_queue<double>& M, double x) {
 
   // decide on initial heap to place element into
   if (m.empty() || x < m.top()) {

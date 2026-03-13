@@ -16,7 +16,7 @@ the median in O(1), additional memory use is O(n).
 */
 
 // insert x into the appropriate tree
-extern void insert_element(std::multiset<double>& m, std::multiset<double, std::greater<double>>& M, double x) {
+extern void insert_element(std::multiset<double>& m, std::multiset<double, std::greater<>>& M, double x) {
 
   if (m.empty() || x < *(m.begin())) {
     M.insert(x);
@@ -29,7 +29,7 @@ extern void insert_element(std::multiset<double>& m, std::multiset<double, std::
     M.insert(*i);
     m.erase(m.begin());
   } else if (M.size() > m.size() + 1) {
-    std::multiset<double, std::greater<double>>::iterator i;
+    std::multiset<double, std::greater<>>::iterator i;
     i = M.begin();
     m.insert(*i);
     M.erase(M.begin());
@@ -37,7 +37,7 @@ extern void insert_element(std::multiset<double>& m, std::multiset<double, std::
 }
 
 // given a pair of trees obtain the median
-extern double get_median(const std::multiset<double>& m, const std::multiset<double, std::greater<double>>& M) {
+extern double get_median(const std::multiset<double>& m, const std::multiset<double, std::greater<>>& M) {
 
   if (m.size() > M.size()) {
     return *(m.begin());
@@ -51,7 +51,7 @@ extern double get_median(const std::multiset<double>& m, const std::multiset<dou
 // remove x from the tree, if multiple copies of x exist only remove 1
 // since this method is never called by the user directly it is assumed
 // that there is at least 1 copy of x
-extern void remove_element(std::multiset<double>& m, std::multiset<double, std::greater<double>>& M, double x) {
+extern void remove_element(std::multiset<double>& m, std::multiset<double, std::greater<>>& M, double x) {
 
   if (x < *(m.begin())) {
     auto i = M.find(x);
@@ -66,7 +66,7 @@ extern void remove_element(std::multiset<double>& m, std::multiset<double, std::
     M.insert(*i);
     m.erase(m.begin());
   } else if (M.size() > m.size() + 1) {
-    std::multiset<double, std::greater<double>>::iterator i;
+    std::multiset<double, std::greater<>>::iterator i;
     i = M.begin();
     m.insert(*i);
     M.erase(M.begin());
