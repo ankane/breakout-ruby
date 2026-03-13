@@ -136,7 +136,7 @@ std::vector<int> EDM_tail(std::vector<double>& Z, int min_size = 24, double alph
   qc = std::pow(GetQuantile(info.AB, quant), alpha);
 
   stat = 2 * qc - qa - qb;
-  stat *= (double)(tau1) * (tau2 - tau1) / (tau2);
+  stat *= static_cast<double>(tau1) * (tau2 - tau1) / (tau2);
 
   info.best_stat = stat;
   info.best_loc = tau1;
@@ -152,7 +152,7 @@ std::vector<int> EDM_tail(std::vector<double>& Z, int min_size = 24, double alph
     }
     qb = std::pow(GetQuantile(info.B, quant), alpha);
     stat = 2 * qc - qa - qb;
-    stat *= (double)(tau2 - tau1) * tau1 / tau2;
+    stat *= static_cast<double>(tau2 - tau1) * tau1 / tau2;
 
     if (stat > info.best_stat) {
       info.best_stat = stat;
@@ -270,7 +270,7 @@ void ForwardUpdate(std::vector<double>& Z, Information& info, int& tau1, double 
     double qb = std::pow(GetQuantile(info.B, quant), alpha);
 
     double stat = 2 * qc - qa - qb;
-    stat *= (double)(tau2 - tau1) * tau1 / tau2;
+    stat *= static_cast<double>(tau2 - tau1) * tau1 / tau2;
 
     if (stat > info.best_stat) {
       info.best_stat = stat;

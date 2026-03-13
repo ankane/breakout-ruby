@@ -48,7 +48,7 @@ std::vector<int> EDMX(const std::vector<double>& Z, int min_size = 24, double al
       double medR = getMedian(RightMin, RightMax);
 
       stat = std::pow(medL - medR, 2);
-      stat *= ((double)tau1 * (tau2 - tau1) / tau2);
+      stat *= (static_cast<double>(tau1) * (tau2 - tau1) / tau2);
 
       if (stat > stat_best) {
         t1 = tau1;

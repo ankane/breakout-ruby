@@ -54,10 +54,10 @@ extern double get_median(const std::multiset<double>& m, const std::multiset<dou
 extern void remove_element(std::multiset<double>& m, std::multiset<double, std::greater<double>>& M, double x) {
 
   if (x < *(m.begin())) {
-    std::multiset<double, std::greater<double>>::iterator i = M.find(x);
+    auto i = M.find(x);
     M.erase(i);
   } else {
-    std::multiset<double>::iterator i = m.find(x);
+    auto i = m.find(x);
     m.erase(i);
   }
   if (m.size() > M.size() + 1) {
