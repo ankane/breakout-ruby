@@ -103,7 +103,7 @@ std::vector<int> EDM_percent(const std::vector<double>& Z, int min_size = 24, do
   // obtain list of optimal change point estimates
   std::vector<int> ret;
   int at = n;
-  while (at) {
+  while (at != 0) {
     if (prev.at(at)) { // don't insert 0 as a change point estimate
       ret.push_back(prev.at(at));
     }

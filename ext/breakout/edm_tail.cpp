@@ -72,7 +72,7 @@ std::vector<int> AddToTree(int B, std::vector<double>& x) {
   std::vector<double>::iterator i;
   for (i = x.begin(); i < x.end(); ++i) { // Iterage over items we wish to add to the tree
     int index = GetIndex(B, *i);
-    while (index) {
+    while (index != 0) {
       ++A.at(index);
       index /= 2;
     }
@@ -96,7 +96,7 @@ std::vector<int> EDM_tail(std::vector<double>& Z, int min_size = 24, double alph
   for (int i = 0; i < tau1; ++i) {
     for (int j = i + 1; j < tau1; ++j) {
       int index = GetIndex(info.b, Z.at(i) - Z.at(j));
-      while (index) {
+      while (index != 0) {
         ++info.A.at(index);
         index /= 2;
       }
@@ -108,7 +108,7 @@ std::vector<int> EDM_tail(std::vector<double>& Z, int min_size = 24, double alph
   for (int i = tau1; i < tau2; ++i) {
     for (int j = i + 1; j < tau2; ++j) {
       int index = GetIndex(info.b, Z.at(i) - Z.at(j));
-      while (index) {
+      while (index != 0) {
         ++info.B.at(index);
         index /= 2;
       }
@@ -120,7 +120,7 @@ std::vector<int> EDM_tail(std::vector<double>& Z, int min_size = 24, double alph
   for (int i = 0; i < tau1; ++i) {
     for (int j = tau1; j < tau2; ++j) {
       int index = GetIndex(info.b, Z.at(i) - Z.at(j));
-      while (index) {
+      while (index != 0) {
         ++info.AB.at(index);
         index /= 2;
       }
@@ -144,7 +144,7 @@ std::vector<int> EDM_tail(std::vector<double>& Z, int min_size = 24, double alph
   ++tau2;
   for (; tau2 < N + 1; ++tau2) {
     int index = GetIndex(info.b, Z.at(tau2 - 1) - Z.at(tau2 - 2));
-    while (index) { // array position 0 is not used, so we exit once we reach this location
+    while (index != 0) { // array position 0 is not used, so we exit once we reach this location
       ++info.B.at(index);
       index /= 2;
     }
@@ -187,20 +187,20 @@ void ForwardUpdate(std::vector<double>& Z, Information& info, int& tau1, double 
   // Update A tree
   for (int i = tau1 - min_size; i < tau1 - 1; ++i) {
     index = GetIndex(info.b, Z.at(i) - Z.at(tau1 - 1));
-    while (index) {
+    while (index != 0) {
       ++info.A.at(index);
       index /= 2;
     }
   }
   for (int i = tau1 - min_size; i < tau1; ++i) {
     index = GetIndex(info.b, Z.at(i) - Z.at(tau1 - min_size - 1));
-    while (index) {
+    while (index != 0) {
       --info.A.at(index);
       index /= 2;
     }
   }
   index = GetIndex(info.b, Z.at(tau1 - min_size - 1) - Z.at(tau1 - min_size));
-  while (index) {
+  while (index != 0) {
     ++info.A.at(index);
     index /= 2;
   }
@@ -208,36 +208,36 @@ void ForwardUpdate(std::vector<double>& Z, Information& info, int& tau1, double 
 
   // Update AB tree
   index = GetIndex(info.b, Z.at(tau1 - 1) - Z.at(tau1 - min_size - 1));
-  while (index) {
+  while (index != 0) {
     --info.AB.at(index);
     index /= 2;
   }
   for (int i = tau1; i < tau2; ++i) {
     index = GetIndex(info.b, Z.at(i) - Z.at(tau1 - min_size - 1));
-    while (index) {
+    while (index != 0) {
       --info.AB.at(index);
       index /= 2;
     }
     index = GetIndex(info.b, Z.at(i) - Z.at(tau1 - 1));
-    while (index) {
+    while (index != 0) {
       ++info.AB.at(index);
       index /= 2;
     }
   }
   for (int i = tau1 - min_size; i < tau1 - 1; ++i) {
     index = GetIndex(info.b, Z.at(i) - Z.at(tau1 - 1));
-    while (index) {
+    while (index != 0) {
       --info.AB.at(index);
       index /= 2;
     }
     index = GetIndex(info.b, Z.at(i) - Z.at(tau2));
-    while (index) {
+    while (index != 0) {
       ++info.AB.at(index);
       index /= 2;
     }
   }
   index = GetIndex(info.b, Z.at(tau1 - 1) - Z.at(tau2));
-  while (index) {
+  while (index != 0) {
     ++info.AB.at(index);
     index /= 2;
   }
@@ -246,12 +246,12 @@ void ForwardUpdate(std::vector<double>& Z, Information& info, int& tau1, double 
   // Update B tree
   for (int i = tau1; i < tau2; ++i) {
     index = GetIndex(info.b, Z.at(i) - Z.at(tau1 - 1));
-    while (index) {
+    while (index != 0) {
       --info.B.at(index);
       index /= 2;
     }
     index = GetIndex(info.b, Z.at(i) - Z.at(tau2));
-    while (index) {
+    while (index != 0) {
       ++info.B.at(index);
       index /= 2;
     }
@@ -261,7 +261,7 @@ void ForwardUpdate(std::vector<double>& Z, Information& info, int& tau1, double 
   ++tau2;
   for (; tau2 < N + 1; ++tau2) {
     index = GetIndex(info.b, Z.at(tau2 - 1) - Z.at(tau2 - 2));
-    while (index) {
+    while (index != 0) {
       ++info.B.at(index);
       index /= 2;
     }
@@ -287,20 +287,20 @@ void BackwardUpdate(std::vector<double>& Z, Information& info, int& tau1, double
   // Update A tree
   for (int i = tau1 - min_size; i < tau1 - 1; ++i) {
     index = GetIndex(info.b, Z.at(i) - Z.at(tau1 - 1));
-    while (index) {
+    while (index != 0) {
       ++info.A.at(index);
       index /= 2;
     }
   }
   for (int i = tau1 - min_size; i < tau1; ++i) {
     index = GetIndex(info.b, Z.at(i) - Z.at(tau1 - min_size - 1));
-    while (index) {
+    while (index != 0) {
       --info.A.at(index);
       index /= 2;
     }
   }
   index = GetIndex(info.b, Z.at(tau1 - min_size - 1) - Z.at(tau1 - min_size));
-  while (index) {
+  while (index != 0) {
     ++info.A.at(index);
     index /= 2;
   }
@@ -308,36 +308,36 @@ void BackwardUpdate(std::vector<double>& Z, Information& info, int& tau1, double
 
   // Update AB tree
   index = GetIndex(info.b, Z.at(tau1 - 1) - Z.at(tau1 - min_size - 1));
-  while (index) {
+  while (index != 0) {
     --info.AB.at(index);
     index /= 2;
   }
   for (int i = tau1; i < tau2; ++i) {
     index = GetIndex(info.b, Z.at(i) - Z.at(tau1 - min_size - 1));
-    while (index) {
+    while (index != 0) {
       --info.AB.at(index);
       index /= 2;
     }
     index = GetIndex(info.b, Z.at(i) - Z.at(tau1 - 1));
-    while (index) {
+    while (index != 0) {
       ++info.AB.at(index);
       index /= 2;
     }
   }
   for (int i = tau1 - min_size; i < tau1 - 1; ++i) {
     index = GetIndex(info.b, Z.at(i) - Z.at(tau1 - 1));
-    while (index) {
+    while (index != 0) {
       --info.AB.at(index);
       index /= 2;
     }
     index = GetIndex(info.b, Z.at(i) - Z.at(tau2));
-    while (index) {
+    while (index != 0) {
       ++info.AB.at(index);
       index /= 2;
     }
   }
   index = GetIndex(info.b, Z.at(tau1 - 1) - Z.at(tau2));
-  while (index) {
+  while (index != 0) {
     ++info.AB.at(index);
     index /= 2;
   }
@@ -346,12 +346,12 @@ void BackwardUpdate(std::vector<double>& Z, Information& info, int& tau1, double
   // Update B tree
   for (int i = tau1; i < tau1 + min_size - 1; ++i) {
     index = GetIndex(info.b, Z.at(tau1 + min_size - 1) - Z.at(i));
-    while (index) {
+    while (index != 0) {
       ++info.B.at(index);
       index /= 2;
     }
     index = GetIndex(info.b, Z.at(i) - Z.at(tau1 - 1));
-    while (index) {
+    while (index != 0) {
       --info.B.at(index);
       index /= 2;
     }
@@ -362,14 +362,14 @@ void BackwardUpdate(std::vector<double>& Z, Information& info, int& tau1, double
 
   for (; tau2 >= tau1 + min_size; --tau2) {
     index = GetIndex(info.b, Z.at(tau2 - 1) - Z.at(tau2 - 2));
-    while (index) {
+    while (index != 0) {
       --info.B.at(index);
       index /= 2;
     }
     double qb = std::pow(GetQuantile(info.B, quant), alpha);
 
     double stat = 2 * qc - qa - qb;
-    stat *= (double)(tau2 - tau1) * tau1 / tau2;
+    stat *= static_cast<double>(tau2 - tau1) * tau1 / tau2;
 
     if (stat > info.best_stat) {
       info.best_stat = stat;
