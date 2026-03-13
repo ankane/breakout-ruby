@@ -80,9 +80,10 @@ std::vector<int> EDM_percent(const std::vector<double>& Z, int min_size = 24, do
       }
 
       // calculate statistic value
-      double left_median = get_median(left_min, left_max), right_median = get_median(right_min, right_max);
+      double left_median = get_median(left_min, left_max);
+      double right_median = get_median(right_min, right_max);
       double normalize = ((t - prev.at(t)) * (s - t)) / (std::pow(static_cast<double>(s - prev.at(t)), 2));
-      double tmp = F.at(t) + normalize * std::pow(static_cast<double>(left_median - right_median), 2);
+      double tmp = F.at(t) + normalize * std::pow(left_median - right_median, 2);
       // Find best location for change point. check % condition later
       if (tmp > F.at(s)) {
         number.at(s) = number.at(t) + 1;
