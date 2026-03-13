@@ -44,8 +44,9 @@ double GetQuantile(std::vector<double>& x, double quant) {
   int i = 1, j;
   while (i < N) { // Make sure that we do not go beyond the array bounds
     j = i << 1;
-    if (j >= N)
+    if (j >= N) {
       break;
+    }
     if (x[i] == k) { // Exactly k elements in this node's subtree. So can terminate early
       // Return a weighted combination of the child node medians
       double lWeight = x[j] / (x[j] + x[j + 1]);

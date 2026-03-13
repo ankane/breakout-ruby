@@ -3,6 +3,7 @@
 #include <functional>
 #include <set>
 #include <vector>
+
 #include "helper.h"
 
 // Z: time series
@@ -26,17 +27,20 @@ std::vector<int> EDM_multi(const std::vector<double>& Z, int min_size = 24, doub
   }
 
   int n = Z.size();
-  if (beta < 0) // assume that beta is a positive number
+  if (beta < 0) { // assume that beta is a positive number
     beta = -beta;
+  }
   std::vector<int> prev(n + 1, 0);   // store optimal location of previous change point
   std::vector<int> number(n + 1, 0); // store the number of change points in optimal segmentation
   std::vector<double> F(n + 1, -3);  // store optimal statistic value
   // F[s] is calculated using observations { Z[0], Z[1], ..., Z[s-1] }
 
   // trees used to store the "upper half" of the considered observations
-  std::multiset<double> right_min, left_min;
+  std::multiset<double> right_min;
+  std::multiset<double> left_min;
   // trees used to store the "lower half" of the considered observations
-  std::multiset<double, std::greater<double>> right_max, left_max;
+  std::multiset<double, std::greater<double>> right_max;
+  std::multiset<double, std::greater<double>> left_max;
 
   // Iterate over possible locations for the last change
   for (int s = 2 * min_size; s < n + 1; ++s) {
@@ -46,10 +50,12 @@ std::vector<int> EDM_multi(const std::vector<double>& Z, int min_size = 24, doub
     left_min.clear(); // clear left trees
 
     // initialize left and right trees to account for minimum segment size
-    for (int i = prev[min_size - 1]; i < min_size - 1; ++i)
+    for (int i = prev[min_size - 1]; i < min_size - 1; ++i) {
       insert_element(left_min, left_max, Z[i]);
-    for (int i = min_size - 1; i < s; ++i)
+    }
+    for (int i = min_size - 1; i < s; ++i) {
       insert_element(right_min, right_max, Z[i]);
+    }
 
     // Iterate over possible locations for the penultimate change
     for (int t = min_size; t < s - min_size + 1; ++t) { // modify limits to deal with min_size
@@ -61,11 +67,13 @@ std::vector<int> EDM_multi(const std::vector<double>& Z, int min_size = 24, doub
       // check to see if optimal position of previous change point has changed
       // if so update the left tree
       if (prev[t] > prev[t - 1]) {
-        for (int i = prev[t - 1]; i < prev[t]; ++i)
+        for (int i = prev[t - 1]; i < prev[t]; ++i) {
           remove_element(left_min, left_max, Z[i]);
+        }
       } else if (prev[t] < prev[t - 1]) {
-        for (int i = prev[t]; i < prev[t - 1]; ++i)
+        for (int i = prev[t]; i < prev[t - 1]; ++i) {
           insert_element(left_min, left_max, Z[i]);
+        }
       }
 
       // calculate statistic value
@@ -85,8 +93,9 @@ std::vector<int> EDM_multi(const std::vector<double>& Z, int min_size = 24, doub
   std::vector<int> ret;
   int at = n;
   while (at) {
-    if (prev[at]) // don't insert 0 as a change point estimate
+    if (prev[at]) { // don't insert 0 as a change point estimate
       ret.push_back(prev[at]);
+    }
     at = prev[at];
   }
   sort(ret.begin(), ret.end());

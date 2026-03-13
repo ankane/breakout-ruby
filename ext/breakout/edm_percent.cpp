@@ -9,6 +9,7 @@
 #include <functional>
 #include <set>
 #include <vector>
+
 #include "helper.h"
 
 std::vector<int> EDM_percent(const std::vector<double>& Z, int min_size = 24, double percent = 0, int degree = 0) {
@@ -50,10 +51,12 @@ std::vector<int> EDM_percent(const std::vector<double>& Z, int min_size = 24, do
     left_min.clear(); // clear left trees
 
     // initialize left and right trees to account for minimum segment size
-    for (int i = prev[min_size - 1]; i < min_size - 1; ++i)
+    for (int i = prev[min_size - 1]; i < min_size - 1; ++i) {
       insert_element(left_min, left_max, Z[i]);
-    for (int i = min_size - 1; i < s; ++i)
+    }
+    for (int i = min_size - 1; i < s; ++i) {
       insert_element(right_min, right_max, Z[i]);
+    }
 
     // Iterate over possible locations for the penultimate change
     for (int t = min_size; t < s - min_size + 1; ++t) { // modify limits to deal with min_size
@@ -65,11 +68,13 @@ std::vector<int> EDM_percent(const std::vector<double>& Z, int min_size = 24, do
       // check to see if optimal position of previous change point has changed
       // if so update the left tree
       if (prev[t] > prev[t - 1]) {
-        for (int i = prev[t - 1]; i < prev[t]; ++i)
+        for (int i = prev[t - 1]; i < prev[t]; ++i) {
           remove_element(left_min, left_max, Z[i]);
+        }
       } else if (prev[t] < prev[t - 1]) {
-        for (int i = prev[t]; i < prev[t - 1]; ++i)
+        for (int i = prev[t]; i < prev[t - 1]; ++i) {
           insert_element(left_min, left_max, Z[i]);
+        }
       }
 
       // calculate statistic value
@@ -97,8 +102,9 @@ std::vector<int> EDM_percent(const std::vector<double>& Z, int min_size = 24, do
   std::vector<int> ret;
   int at = n;
   while (at) {
-    if (prev[at]) // don't insert 0 as a change point estimate
+    if (prev[at]) { // don't insert 0 as a change point estimate
       ret.push_back(prev[at]);
+    }
     at = prev[at];
   }
   sort(ret.begin(), ret.end());

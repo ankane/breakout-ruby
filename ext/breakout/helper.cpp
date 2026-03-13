@@ -2,6 +2,7 @@
 #include <cmath>
 #include <functional>
 #include <set>
+
 #include "helper.h"
 
 extern double Linear(double x) { return 1; }
