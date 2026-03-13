@@ -20,15 +20,15 @@ void Init_ext() {
       "_detect",
       [](std::vector<double> z, int min_size, const std::string& method, double alpha, std::optional<double> beta, int degree, std::optional<double> percent, bool exact) {
         auto minmax = std::minmax_element(z.begin(), z.end());
-        auto min = *minmax.first;
-        auto max = *minmax.second;
-        auto diff = max - min;
+        double min = *minmax.first;
+        double max = *minmax.second;
+        double diff = max - min;
         if (diff == 0) {
           // constant series
           return Rice::Array();
         }
-        for (auto i = 0; i < z.size(); i++) {
-          z[i] = (z[i] - min) / diff;
+        for (auto& zi : z) {
+          zi = (zi - min) / diff;
         }
 
         std::vector<int> res;
@@ -40,13 +40,13 @@ void Init_ext() {
           }
         } else {
           if (percent.has_value()) {
-            res = EDM_percent(z, min_size, *percent, degree);
+            res = EDM_percent(z, min_size, percent.value(), degree);
           } else {
             res = EDM_multi(z, min_size, beta.value_or(0.008), degree);
           }
         }
 
-        auto a = Rice::Array();
+        Rice::Array a;
         for (auto v : res) {
           a.push(v, false);
         }
