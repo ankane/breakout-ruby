@@ -40,8 +40,10 @@ double GetQuantile(std::vector<double>& x, double quant) {
 
   int N = x.size();
   int k = std::ceil(x.at(1) * quant);
-  double l = 0, u = 1;
-  int i = 1, j;
+  double l = 0;
+  double u = 1;
+  int i = 1;
+  int j;
   while (i < N) { // Make sure that we do not go beyond the array bounds
     j = i << 1;
     if (j >= N) {

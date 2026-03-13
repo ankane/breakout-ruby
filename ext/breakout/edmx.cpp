@@ -21,8 +21,12 @@ std::vector<int> EDMX(const std::vector<double>& Z, int min_size = 24, double al
   std::priority_queue<double> LeftMax;
   std::priority_queue<double, std::vector<double>, std::greater<double>> LeftMin;
 
-  double stat = -3, stat_best = -3, t1 = 0.0, t2;
-  int tau1, tau2;
+  double stat = -3;
+  double stat_best = -3;
+  double t1 = 0.0;
+  double t2;
+  int tau1;
+  int tau2;
   int N = Z.size();
   for (int i = 0; i < min_size - 1; ++i) {
     AddToHeaps(LeftMin, LeftMax, Z.at(i));

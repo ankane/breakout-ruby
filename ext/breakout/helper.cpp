@@ -18,10 +18,11 @@ the median in O(1), additional memory use is O(n).
 // insert x into the appropriate tree
 extern void insert_element(std::multiset<double>& m, std::multiset<double, std::greater<double>>& M, double x) {
 
-  if (m.empty() || x < *(m.begin()))
+  if (m.empty() || x < *(m.begin())) {
     M.insert(x);
-  else
+  } else {
     m.insert(x);
+  }
   if (m.size() > M.size() + 1) {
     std::multiset<double>::iterator i;
     i = m.begin();
@@ -38,12 +39,13 @@ extern void insert_element(std::multiset<double>& m, std::multiset<double, std::
 // given a pair of trees obtain the median
 extern double get_median(const std::multiset<double>& m, const std::multiset<double, std::greater<double>>& M) {
 
-  if (m.size() > M.size())
+  if (m.size() > M.size()) {
     return *(m.begin());
-  else if (M.size() > m.size())
+  } else if (M.size() > m.size()) {
     return *(M.begin());
-  else
+  } else {
     return (*(M.begin()) + *(m.begin())) / 2;
+  }
 }
 
 // remove x from the tree, if multiple copies of x exist only remove 1
