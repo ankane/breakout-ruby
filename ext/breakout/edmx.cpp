@@ -25,10 +25,10 @@ std::vector<int> EDMX(const std::vector<double>& Z, int min_size = 24, double al
   int tau1, tau2;
   int N = Z.size();
   for (int i = 0; i < min_size - 1; ++i)
-    AddToHeaps(LeftMin, LeftMax, Z[i]);
+    AddToHeaps(LeftMin, LeftMax, Z.at(i));
 
   for (tau1 = min_size; tau1 < N - min_size + 1; ++tau1) { // Iterate over breakout locations
-    AddToHeaps(LeftMin, LeftMax, Z[tau1 - 1]);
+    AddToHeaps(LeftMin, LeftMax, Z.at(tau1 - 1));
     std::priority_queue<double> RightMax;
     std::priority_queue<double, std::vector<double>, std::greater<double>> RightMin;
     double medL = getMedian(LeftMin, LeftMax);
@@ -38,7 +38,7 @@ std::vector<int> EDMX(const std::vector<double>& Z, int min_size = 24, double al
       AddToHeaps(RightMin, RightMax, *i);
 
     for (tau2 = tau1 + min_size; tau2 < N + 1; ++tau2) { // Iterate over end of prefix series locations
-      AddToHeaps(RightMin, RightMax, Z[tau2 - 1]);
+      AddToHeaps(RightMin, RightMax, Z.at(tau2 - 1));
       double medR = getMedian(RightMin, RightMax);
 
       stat = std::pow(medL - medR, 2);

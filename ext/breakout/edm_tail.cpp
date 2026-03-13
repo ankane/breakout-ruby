@@ -39,7 +39,7 @@ double GetQuantile(std::vector<double>& x, double quant) {
   // Return approximate quantile based on the interval tree
 
   int N = x.size();
-  int k = std::ceil(x[1] * quant);
+  int k = std::ceil(x.at(1) * quant);
   double l = 0, u = 1;
   int i = 1, j;
   while (i < N) { // Make sure that we do not go beyond the array bounds
@@ -47,19 +47,19 @@ double GetQuantile(std::vector<double>& x, double quant) {
     if (j >= N) {
       break;
     }
-    if (x[i] == k) { // Exactly k elements in this node's subtree. So can terminate early
+    if (x.at(i) == k) { // Exactly k elements in this node's subtree. So can terminate early
       // Return a weighted combination of the child node medians
-      double lWeight = x[j] / (x[j] + x[j + 1]);
+      double lWeight = x.at(j) / (x.at(j) + x.at(j + 1));
       double rWeight = 1 - lWeight;
       double lu, rl;
       lu = (u + l) / 2;
       rl = (u + lu) / 2;
       return lWeight * (quant * (lu - l) + l) + rWeight * (quant * (u - rl) + rl);
-    } else if (x[j] >= k) { // More than k elements in node's left child's subtree, move to left child
+    } else if (x.at(j) >= k) { // More than k elements in node's left child's subtree, move to left child
       i = j;
       u = (l + u) / 2;
-    } else if (x[j] < k) { // Not enough elements in node's left child's subtree, move to right child
-      k -= x[j];
+    } else if (x.at(j) < k) { // Not enough elements in node's left child's subtree, move to right child
+      k -= x.at(j);
       i = j + 1;
       l = (l + u) / 2;
     }
@@ -73,7 +73,7 @@ std::vector<int> AddToTree(int B, std::vector<double>& x) {
   for (i = x.begin(); i < x.end(); ++i) { // Iterage over items we wish to add to the tree
     int index = GetIndex(B, *i);
     while (index) {
-      ++A[index];
+      ++A.at(index);
       index /= 2;
     }
   }
@@ -95,9 +95,9 @@ std::vector<int> EDM_tail(std::vector<double>& Z, int min_size = 24, double alph
   // 2 min_size segments
   for (int i = 0; i < tau1; ++i) {
     for (int j = i + 1; j < tau1; ++j) {
-      int index = GetIndex(info.b, Z[i] - Z[j]);
+      int index = GetIndex(info.b, Z.at(i) - Z.at(j));
       while (index) {
-        ++info.A[index];
+        ++info.A.at(index);
         index /= 2;
       }
     }
@@ -107,9 +107,9 @@ std::vector<int> EDM_tail(std::vector<double>& Z, int min_size = 24, double alph
   // 2 min_size segments
   for (int i = tau1; i < tau2; ++i) {
     for (int j = i + 1; j < tau2; ++j) {
-      int index = GetIndex(info.b, Z[i] - Z[j]);
+      int index = GetIndex(info.b, Z.at(i) - Z.at(j));
       while (index) {
-        ++info.B[index];
+        ++info.B.at(index);
         index /= 2;
       }
     }
@@ -119,9 +119,9 @@ std::vector<int> EDM_tail(std::vector<double>& Z, int min_size = 24, double alph
   // 2 min_size segments
   for (int i = 0; i < tau1; ++i) {
     for (int j = tau1; j < tau2; ++j) {
-      int index = GetIndex(info.b, Z[i] - Z[j]);
+      int index = GetIndex(info.b, Z.at(i) - Z.at(j));
       while (index) {
-        ++info.AB[index];
+        ++info.AB.at(index);
         index /= 2;
       }
     }
@@ -143,9 +143,9 @@ std::vector<int> EDM_tail(std::vector<double>& Z, int min_size = 24, double alph
   // Increment tau2 and update trees and statistic
   ++tau2;
   for (; tau2 < N + 1; ++tau2) {
-    int index = GetIndex(info.b, Z[tau2 - 1] - Z[tau2 - 2]);
+    int index = GetIndex(info.b, Z.at(tau2 - 1) - Z.at(tau2 - 2));
     while (index) { // array position 0 is not used, so we exit once we reach this location
-      ++info.B[index];
+      ++info.B.at(index);
       index /= 2;
     }
     qb = std::pow(GetQuantile(info.B, quant), alpha);
@@ -186,73 +186,73 @@ void ForwardUpdate(std::vector<double>& Z, Information& info, int& tau1, double 
   int N = Z.size(), index;
   // Update A tree
   for (int i = tau1 - min_size; i < tau1 - 1; ++i) {
-    index = GetIndex(info.b, Z[i] - Z[tau1 - 1]);
+    index = GetIndex(info.b, Z.at(i) - Z.at(tau1 - 1));
     while (index) {
-      ++info.A[index];
+      ++info.A.at(index);
       index /= 2;
     }
   }
   for (int i = tau1 - min_size; i < tau1; ++i) {
-    index = GetIndex(info.b, Z[i] - Z[tau1 - min_size - 1]);
+    index = GetIndex(info.b, Z.at(i) - Z.at(tau1 - min_size - 1));
     while (index) {
-      --info.A[index];
+      --info.A.at(index);
       index /= 2;
     }
   }
-  index = GetIndex(info.b, Z[tau1 - min_size - 1] - Z[tau1 - min_size]);
+  index = GetIndex(info.b, Z.at(tau1 - min_size - 1) - Z.at(tau1 - min_size));
   while (index) {
-    ++info.A[index];
+    ++info.A.at(index);
     index /= 2;
   }
   double qa = std::pow(GetQuantile(info.A, quant), alpha);
 
   // Update AB tree
-  index = GetIndex(info.b, Z[tau1 - 1] - Z[tau1 - min_size - 1]);
+  index = GetIndex(info.b, Z.at(tau1 - 1) - Z.at(tau1 - min_size - 1));
   while (index) {
-    --info.AB[index];
+    --info.AB.at(index);
     index /= 2;
   }
   for (int i = tau1; i < tau2; ++i) {
-    index = GetIndex(info.b, Z[i] - Z[tau1 - min_size - 1]);
+    index = GetIndex(info.b, Z.at(i) - Z.at(tau1 - min_size - 1));
     while (index) {
-      --info.AB[index];
+      --info.AB.at(index);
       index /= 2;
     }
-    index = GetIndex(info.b, Z[i] - Z[tau1 - 1]);
+    index = GetIndex(info.b, Z.at(i) - Z.at(tau1 - 1));
     while (index) {
-      ++info.AB[index];
+      ++info.AB.at(index);
       index /= 2;
     }
   }
   for (int i = tau1 - min_size; i < tau1 - 1; ++i) {
-    index = GetIndex(info.b, Z[i] - Z[tau1 - 1]);
+    index = GetIndex(info.b, Z.at(i) - Z.at(tau1 - 1));
     while (index) {
-      --info.AB[index];
+      --info.AB.at(index);
       index /= 2;
     }
-    index = GetIndex(info.b, Z[i] - Z[tau2]);
+    index = GetIndex(info.b, Z.at(i) - Z.at(tau2));
     while (index) {
-      ++info.AB[index];
+      ++info.AB.at(index);
       index /= 2;
     }
   }
-  index = GetIndex(info.b, Z[tau1 - 1] - Z[tau2]);
+  index = GetIndex(info.b, Z.at(tau1 - 1) - Z.at(tau2));
   while (index) {
-    ++info.AB[index];
+    ++info.AB.at(index);
     index /= 2;
   }
   double qc = std::pow(GetQuantile(info.AB, quant), alpha);
 
   // Update B tree
   for (int i = tau1; i < tau2; ++i) {
-    index = GetIndex(info.b, Z[i] - Z[tau1 - 1]);
+    index = GetIndex(info.b, Z.at(i) - Z.at(tau1 - 1));
     while (index) {
-      --info.B[index];
+      --info.B.at(index);
       index /= 2;
     }
-    index = GetIndex(info.b, Z[i] - Z[tau2]);
+    index = GetIndex(info.b, Z.at(i) - Z.at(tau2));
     while (index) {
-      ++info.B[index];
+      ++info.B.at(index);
       index /= 2;
     }
   }
@@ -260,9 +260,9 @@ void ForwardUpdate(std::vector<double>& Z, Information& info, int& tau1, double 
   // Increment tau2 and update statistic value as we proceed
   ++tau2;
   for (; tau2 < N + 1; ++tau2) {
-    index = GetIndex(info.b, Z[tau2 - 1] - Z[tau2 - 2]);
+    index = GetIndex(info.b, Z.at(tau2 - 1) - Z.at(tau2 - 2));
     while (index) {
-      ++info.B[index];
+      ++info.B.at(index);
       index /= 2;
     }
     double qb = std::pow(GetQuantile(info.B, quant), alpha);
@@ -286,73 +286,73 @@ void BackwardUpdate(std::vector<double>& Z, Information& info, int& tau1, double
   int N = Z.size(), index;
   // Update A tree
   for (int i = tau1 - min_size; i < tau1 - 1; ++i) {
-    index = GetIndex(info.b, Z[i] - Z[tau1 - 1]);
+    index = GetIndex(info.b, Z.at(i) - Z.at(tau1 - 1));
     while (index) {
-      ++info.A[index];
+      ++info.A.at(index);
       index /= 2;
     }
   }
   for (int i = tau1 - min_size; i < tau1; ++i) {
-    index = GetIndex(info.b, Z[i] - Z[tau1 - min_size - 1]);
+    index = GetIndex(info.b, Z.at(i) - Z.at(tau1 - min_size - 1));
     while (index) {
-      --info.A[index];
+      --info.A.at(index);
       index /= 2;
     }
   }
-  index = GetIndex(info.b, Z[tau1 - min_size - 1] - Z[tau1 - min_size]);
+  index = GetIndex(info.b, Z.at(tau1 - min_size - 1) - Z.at(tau1 - min_size));
   while (index) {
-    ++info.A[index];
+    ++info.A.at(index);
     index /= 2;
   }
   double qa = std::pow(GetQuantile(info.A, quant), alpha);
 
   // Update AB tree
-  index = GetIndex(info.b, Z[tau1 - 1] - Z[tau1 - min_size - 1]);
+  index = GetIndex(info.b, Z.at(tau1 - 1) - Z.at(tau1 - min_size - 1));
   while (index) {
-    --info.AB[index];
+    --info.AB.at(index);
     index /= 2;
   }
   for (int i = tau1; i < tau2; ++i) {
-    index = GetIndex(info.b, Z[i] - Z[tau1 - min_size - 1]);
+    index = GetIndex(info.b, Z.at(i) - Z.at(tau1 - min_size - 1));
     while (index) {
-      --info.AB[index];
+      --info.AB.at(index);
       index /= 2;
     }
-    index = GetIndex(info.b, Z[i] - Z[tau1 - 1]);
+    index = GetIndex(info.b, Z.at(i) - Z.at(tau1 - 1));
     while (index) {
-      ++info.AB[index];
+      ++info.AB.at(index);
       index /= 2;
     }
   }
   for (int i = tau1 - min_size; i < tau1 - 1; ++i) {
-    index = GetIndex(info.b, Z[i] - Z[tau1 - 1]);
+    index = GetIndex(info.b, Z.at(i) - Z.at(tau1 - 1));
     while (index) {
-      --info.AB[index];
+      --info.AB.at(index);
       index /= 2;
     }
-    index = GetIndex(info.b, Z[i] - Z[tau2]);
+    index = GetIndex(info.b, Z.at(i) - Z.at(tau2));
     while (index) {
-      ++info.AB[index];
+      ++info.AB.at(index);
       index /= 2;
     }
   }
-  index = GetIndex(info.b, Z[tau1 - 1] - Z[tau2]);
+  index = GetIndex(info.b, Z.at(tau1 - 1) - Z.at(tau2));
   while (index) {
-    ++info.AB[index];
+    ++info.AB.at(index);
     index /= 2;
   }
   double qc = std::pow(GetQuantile(info.AB, quant), alpha);
 
   // Update B tree
   for (int i = tau1; i < tau1 + min_size - 1; ++i) {
-    index = GetIndex(info.b, Z[tau1 + min_size - 1] - Z[i]);
+    index = GetIndex(info.b, Z.at(tau1 + min_size - 1) - Z.at(i));
     while (index) {
-      ++info.B[index];
+      ++info.B.at(index);
       index /= 2;
     }
-    index = GetIndex(info.b, Z[i] - Z[tau1 - 1]);
+    index = GetIndex(info.b, Z.at(i) - Z.at(tau1 - 1));
     while (index) {
-      --info.B[index];
+      --info.B.at(index);
       index /= 2;
     }
   }
@@ -361,9 +361,9 @@ void BackwardUpdate(std::vector<double>& Z, Information& info, int& tau1, double
   tau2 = N;
 
   for (; tau2 >= tau1 + min_size; --tau2) {
-    index = GetIndex(info.b, Z[tau2 - 1] - Z[tau2 - 2]);
+    index = GetIndex(info.b, Z.at(tau2 - 1) - Z.at(tau2 - 2));
     while (index) {
-      --info.B[index];
+      --info.B.at(index);
       index /= 2;
     }
     double qb = std::pow(GetQuantile(info.B, quant), alpha);

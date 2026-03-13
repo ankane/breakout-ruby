@@ -50,41 +50,41 @@ std::vector<int> EDM_multi(const std::vector<double>& Z, int min_size = 24, doub
     left_min.clear(); // clear left trees
 
     // initialize left and right trees to account for minimum segment size
-    for (int i = prev[min_size - 1]; i < min_size - 1; ++i) {
-      insert_element(left_min, left_max, Z[i]);
+    for (int i = prev.at(min_size - 1); i < min_size - 1; ++i) {
+      insert_element(left_min, left_max, Z.at(i));
     }
     for (int i = min_size - 1; i < s; ++i) {
-      insert_element(right_min, right_max, Z[i]);
+      insert_element(right_min, right_max, Z.at(i));
     }
 
     // Iterate over possible locations for the penultimate change
     for (int t = min_size; t < s - min_size + 1; ++t) { // modify limits to deal with min_size
-      insert_element(left_min, left_max, Z[t - 1]);     // insert element into left tree
-      remove_element(right_min, right_max, Z[t - 1]);   // remove element from right tree
+      insert_element(left_min, left_max, Z.at(t - 1));     // insert element into left tree
+      remove_element(right_min, right_max, Z.at(t - 1));   // remove element from right tree
       // left tree now has { Z[prev[t-1]], ..., Z[t-1] }
       // right tree now has { Z[t], ..., Z[s-1] }
 
       // check to see if optimal position of previous change point has changed
       // if so update the left tree
-      if (prev[t] > prev[t - 1]) {
-        for (int i = prev[t - 1]; i < prev[t]; ++i) {
-          remove_element(left_min, left_max, Z[i]);
+      if (prev.at(t) > prev.at(t - 1)) {
+        for (int i = prev.at(t - 1); i < prev.at(t); ++i) {
+          remove_element(left_min, left_max, Z.at(i));
         }
-      } else if (prev[t] < prev[t - 1]) {
-        for (int i = prev[t]; i < prev[t - 1]; ++i) {
-          insert_element(left_min, left_max, Z[i]);
+      } else if (prev.at(t) < prev.at(t - 1)) {
+        for (int i = prev.at(t); i < prev.at(t - 1); ++i) {
+          insert_element(left_min, left_max, Z.at(i));
         }
       }
 
       // calculate statistic value
       double left_median = get_median(left_min, left_max), right_median = get_median(right_min, right_max);
-      double normalize = ((t - prev[t]) * (s - t)) / (std::pow((double)(s - prev[t]), 2.0));
-      double tmp = F[t] + normalize * std::pow(left_median - right_median, 2.0) - beta * G(number[t]);
+      double normalize = ((t - prev.at(t)) * (s - t)) / (std::pow((double)(s - prev.at(t)), 2.0));
+      double tmp = F.at(t) + normalize * std::pow(left_median - right_median, 2.0) - beta * G(number.at(t));
       // check for improved optimal statistic value
-      if (tmp > F[s]) {
-        number[s] = number[t] + 1;
-        F[s] = tmp;
-        prev[s] = t;
+      if (tmp > F.at(s)) {
+        number.at(s) = number.at(t) + 1;
+        F.at(s) = tmp;
+        prev.at(s) = t;
       }
     }
   }
@@ -93,10 +93,10 @@ std::vector<int> EDM_multi(const std::vector<double>& Z, int min_size = 24, doub
   std::vector<int> ret;
   int at = n;
   while (at) {
-    if (prev[at]) { // don't insert 0 as a change point estimate
-      ret.push_back(prev[at]);
+    if (prev.at(at)) { // don't insert 0 as a change point estimate
+      ret.push_back(prev.at(at));
     }
-    at = prev[at];
+    at = prev.at(at);
   }
   sort(ret.begin(), ret.end());
   return ret;
