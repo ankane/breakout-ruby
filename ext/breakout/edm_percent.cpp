@@ -91,7 +91,7 @@ std::vector<int> EDM_percent(const std::vector<double>& Z, int min_size = 24, do
       }
     }
     // check to make sure we meet the percent change requirement
-    if (prev.at(s)) {
+    if (prev.at(s) != 0) {
       if (F.at(s) - F.at(prev.at(s)) < percent * G(number.at(prev.at(s))) * F.at(prev.at(s))) {
         number.at(s) = number.at(prev.at(s));
         F.at(s) = F.at(prev.at(s));
@@ -104,7 +104,7 @@ std::vector<int> EDM_percent(const std::vector<double>& Z, int min_size = 24, do
   std::vector<int> ret;
   int at = n;
   while (at != 0) {
-    if (prev.at(at)) { // don't insert 0 as a change point estimate
+    if (prev.at(at) != 0) { // don't insert 0 as a change point estimate
       ret.push_back(prev.at(at));
     }
     at = prev.at(at);

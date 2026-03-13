@@ -10,10 +10,14 @@ This version calculates the between distance using the delta points around the c
 // Class used to hold all the information about the
 // breakout location and the interval trees
 struct Information {
-  std::vector<double> A, B, AB;
+  std::vector<double> A;
+  std::vector<double> B;
+  std::vector<double> AB;
   double best_stat;
-  int best_loc, best_t2;
-  int min_size, b;
+  int best_loc;
+  int best_t2;
+  int min_size;
+  int b;
 
   Information(int, int);
 };
@@ -53,7 +57,8 @@ double GetQuantile(std::vector<double>& x, double quant) {
       // Return a weighted combination of the child node medians
       double lWeight = x.at(j) / (x.at(j) + x.at(j + 1));
       double rWeight = 1 - lWeight;
-      double lu, rl;
+      double lu;
+      double rl;
       lu = (u + l) / 2;
       rl = (u + lu) / 2;
       return lWeight * (quant * (lu - l) + l) + rWeight * (quant * (u - rl) + rl);
@@ -185,7 +190,8 @@ void ForwardUpdate(std::vector<double>& Z, Information& info, int& tau1, double 
   int min_size = info.min_size;
   int tau2 = tau1 + min_size;
   ++tau1;
-  int N = Z.size(), index;
+  int N = Z.size();
+  int index;
   // Update A tree
   for (int i = tau1 - min_size; i < tau1 - 1; ++i) {
     index = GetIndex(info.b, Z.at(i) - Z.at(tau1 - 1));
@@ -285,7 +291,8 @@ void BackwardUpdate(std::vector<double>& Z, Information& info, int& tau1, double
   int min_size = info.min_size;
   int tau2 = tau1 + min_size;
   ++tau1;
-  int N = Z.size(), index;
+  int N = Z.size();
+  int index;
   // Update A tree
   for (int i = tau1 - min_size; i < tau1 - 1; ++i) {
     index = GetIndex(info.b, Z.at(i) - Z.at(tau1 - 1));

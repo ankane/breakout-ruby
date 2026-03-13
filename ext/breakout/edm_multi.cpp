@@ -79,7 +79,7 @@ std::vector<int> EDM_multi(const std::vector<double>& Z, int min_size = 24, doub
       // calculate statistic value
       double left_median = get_median(left_min, left_max);
       double right_median = get_median(right_min, right_max);
-      double normalize = ((t - prev.at(t)) * (s - t)) / (std::pow((double)(s - prev.at(t)), 2.0));
+      double normalize = ((t - prev.at(t)) * (s - t)) / (std::pow(static_cast<double>(s - prev.at(t)), 2.0));
       double tmp = F.at(t) + normalize * std::pow(left_median - right_median, 2.0) - beta * G(number.at(t));
       // check for improved optimal statistic value
       if (tmp > F.at(s)) {
