@@ -32,7 +32,7 @@ void ForwardUpdate(std::vector<double>& Z, Information& info, int& tau1, double 
 
 int GetIndex(int B, double x) {
   // Get index of leaf node interval containing x
-  return (int)std::ceil(std::abs(x) * (1 << B)) + (1 << B) - 1;
+  return static_cast<int>(std::ceil(std::abs(x) * (1 << B))) + (1 << B) - 1;
 }
 
 double GetQuantile(std::vector<double>& x, double quant) {
@@ -85,7 +85,7 @@ std::vector<int> AddToTree(int B, std::vector<double>& x) {
 std::vector<int> EDM_tail(std::vector<double>& Z, int min_size = 24, double alpha = 2, double quant = 0.5) {
 
   int N = Z.size();
-  int eps = (int)std::ceil(std::log(N));
+  int eps = static_cast<int>(std::ceil(std::log(N)));
   eps = std::max(eps, 10);
 
   Information info(eps, min_size);
