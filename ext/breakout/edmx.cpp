@@ -26,7 +26,8 @@ std::vector<int> EDMX(const std::vector<double>& Z, int min_size = 24, double al
   double t1 = 0.0;
   int tau1;
   int tau2;
-  int N = Z.size();
+  // TODO check cast
+  int N = static_cast<int>(Z.size());
   for (int i = 0; i < min_size - 1; ++i) {
     AddToHeaps(LeftMin, LeftMax, Z.at(i));
   }

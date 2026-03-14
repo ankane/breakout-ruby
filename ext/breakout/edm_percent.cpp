@@ -31,7 +31,8 @@ std::vector<int> EDM_percent(const std::vector<double>& Z, int min_size = 24, do
     break;
   }
 
-  int n = Z.size();
+  // TODO check cast
+  int n = static_cast<int>(Z.size());
 
   std::vector<int> prev(n + 1, 0);   // store optimal location of previous change point
   std::vector<int> number(n + 1, 0); // store the number of change points in optimal segmentation

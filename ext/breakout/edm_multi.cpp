@@ -26,7 +26,8 @@ std::vector<int> EDM_multi(const std::vector<double>& Z, int min_size = 24, doub
     break;
   }
 
-  int n = Z.size();
+  // TODO check cast
+  int n = static_cast<int>(Z.size());
   if (beta < 0) { // assume that beta is a positive number
     beta = -beta;
   }

@@ -88,7 +88,8 @@ std::vector<int> AddToTree(int B, std::vector<double>& x) {
 
 std::vector<int> EDM_tail(std::vector<double>& Z, int min_size = 24, double alpha = 2, double quant = 0.5) {
 
-  int N = Z.size();
+  // TODO check cast
+  int N = static_cast<int>(Z.size());
   int eps = static_cast<int>(std::ceil(std::log(N)));
   eps = std::max(eps, 10);
 
@@ -192,7 +193,8 @@ void ForwardUpdate(std::vector<double>& Z, Information& info, int& tau1, double 
   int min_size = info.min_size;
   int tau2 = tau1 + min_size;
   ++tau1;
-  int N = Z.size();
+  // TODO check cast
+  int N = static_cast<int>(Z.size());
   int index;
   // Update A tree
   for (int i = tau1 - min_size; i < tau1 - 1; ++i) {
@@ -293,7 +295,8 @@ void BackwardUpdate(std::vector<double>& Z, Information& info, int& tau1, double
   int min_size = info.min_size;
   int tau2 = tau1 + min_size;
   ++tau1;
-  int N = Z.size();
+  // TODO check cast
+  int N = static_cast<int>(Z.size());
   int index;
   // Update A tree
   for (int i = tau1 - min_size; i < tau1 - 1; ++i) {
