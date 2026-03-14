@@ -11,7 +11,6 @@
 // beta: penalization term for the addition of a change point
 
 std::vector<int> EDM_multi(const std::vector<double>& Z, int min_size = 24, double beta = 0, int degree = 0) {
-
   // identify which type of penalization to use
   double (*G)(double);
   switch (degree) {

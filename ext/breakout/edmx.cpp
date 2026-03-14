@@ -14,7 +14,6 @@ void AddToHeaps(std::priority_queue<double, std::vector<double>, std::greater<>>
 double getMedian(const std::priority_queue<double, std::vector<double>, std::greater<>>& m, const std::priority_queue<double>& M);
 
 std::vector<int> EDMX(const std::vector<double>& Z, int min_size = 24, double alpha = 2) {
-
   alpha = 2; // Not used, just here for uniform function signature
 
   std::priority_queue<double> LeftMax;
@@ -69,7 +68,6 @@ std::vector<int> EDMX(const std::vector<double>& Z, int min_size = 24, double al
 // data ( O(log n) ) and find median ( O(1) ).
 
 double getMedian(const std::priority_queue<double, std::vector<double>, std::greater<>>& m, const std::priority_queue<double>& M) {
-
   if (m.size() > M.size()) { // There are an odd number of observations
     return m.top();
   } else if (M.size() > m.size()) { // There are an odd number of observations
@@ -80,7 +78,6 @@ double getMedian(const std::priority_queue<double, std::vector<double>, std::gre
 }
 
 void AddToHeaps(std::priority_queue<double, std::vector<double>, std::greater<>>& m, std::priority_queue<double>& M, double x) {
-
   // decide on initial heap to place element into
   if (m.empty() || x < m.top()) {
     M.push(x);
