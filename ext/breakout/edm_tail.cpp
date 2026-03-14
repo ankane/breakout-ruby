@@ -42,8 +42,10 @@ int GetIndex(int B, double x) {
 double GetQuantile(std::vector<double>& x, double quant) {
   // Return approximate quantile based on the interval tree
 
-  int N = x.size();
-  int k = std::ceil(x.at(1) * quant);
+  // TODO check cast
+  int N = static_cast<int>(x.size());
+  // TODO check cast
+  int k = static_cast<int>(std::ceil(x.at(1) * quant));
   double l = 0;
   double u = 1;
   int i = 1;
