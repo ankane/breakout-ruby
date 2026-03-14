@@ -24,7 +24,6 @@ std::vector<int> EDMX(const std::vector<double>& Z, int min_size = 24, double al
   double stat = -3;
   double stat_best = -3;
   double t1 = 0.0;
-  double t2;
   int tau1;
   int tau2;
   int N = Z.size();
@@ -52,7 +51,6 @@ std::vector<int> EDMX(const std::vector<double>& Z, int min_size = 24, double al
 
       if (stat > stat_best) {
         t1 = tau1;
-        t2 = tau2;
         stat_best = stat;
       }
     }

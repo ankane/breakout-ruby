@@ -134,14 +134,17 @@ std::vector<int> EDM_tail(std::vector<double>& Z, int min_size = 24, double alph
     }
   }
 
-  double qa, qb, qc, stat;
+  double qa;
+  double qb;
+  double qc;
+  double stat;
 
   qa = std::pow(GetQuantile(info.A, quant), alpha);
   qb = std::pow(GetQuantile(info.B, quant), alpha);
   qc = std::pow(GetQuantile(info.AB, quant), alpha);
 
   stat = 2 * qc - qa - qb;
-  stat *= static_cast<double>(tau1) * (tau2 - tau1) / (tau2);
+  stat *= static_cast<double>(tau1) * (tau2 - tau1) / tau2;
 
   info.best_stat = stat;
   info.best_loc = tau1;
