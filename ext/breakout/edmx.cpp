@@ -4,7 +4,6 @@ This is the E-Divisive E-statistic when alpha = 2
 Instead of calculating mean(X), we calculate median(X), and similarly for Y
 */
 
-#include <algorithm>
 #include <cmath>
 #include <functional>
 #include <queue>

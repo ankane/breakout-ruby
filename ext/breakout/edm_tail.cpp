@@ -4,7 +4,6 @@ This version calculates the between distance using the delta points around the c
 
 #include <algorithm>
 #include <cmath>
-#include <iostream>
 #include <vector>
 
 // Class used to hold all the information about the
