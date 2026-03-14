@@ -24,13 +24,11 @@ extern void insert_element(std::multiset<double>& m, std::multiset<double, std::
     m.insert(x);
   }
   if (m.size() > M.size() + 1) {
-    std::multiset<double>::iterator i;
-    i = m.begin();
+    auto i = m.begin();
     M.insert(*i);
     m.erase(m.begin());
   } else if (M.size() > m.size() + 1) {
-    std::multiset<double, std::greater<>>::iterator i;
-    i = M.begin();
+    auto i = M.begin();
     m.insert(*i);
     M.erase(M.begin());
   }
@@ -61,13 +59,11 @@ extern void remove_element(std::multiset<double>& m, std::multiset<double, std::
     m.erase(i);
   }
   if (m.size() > M.size() + 1) {
-    std::multiset<double>::iterator i;
-    i = m.begin();
+    auto i = m.begin();
     M.insert(*i);
     m.erase(m.begin());
   } else if (M.size() > m.size() + 1) {
-    std::multiset<double, std::greater<>>::iterator i;
-    i = M.begin();
+    auto i = M.begin();
     m.insert(*i);
     M.erase(M.begin());
   }

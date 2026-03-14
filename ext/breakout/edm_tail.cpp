@@ -76,8 +76,7 @@ double GetQuantile(std::vector<double>& x, double quant) {
 
 std::vector<int> AddToTree(int B, std::vector<double>& x) {
   std::vector<int> A(1 << (B + 1));
-  std::vector<double>::iterator i;
-  for (i = x.begin(); i < x.end(); ++i) { // Iterage over items we wish to add to the tree
+  for (auto i = x.begin(); i < x.end(); ++i) { // Iterage over items we wish to add to the tree
     int index = GetIndex(B, *i);
     while (index != 0) {
       ++A.at(index);
