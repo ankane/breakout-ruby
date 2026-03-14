@@ -5,8 +5,8 @@
 
 #include "helper.h"
 
-extern double Linear(double x) { return 1; }
-extern double Const(double x) { return 0; }
+extern double Linear(double /*x*/) { return 1; }
+extern double Const(double /*x*/) { return 0; }
 extern double Quadratic(double x) { return 2 * x + 1; }
 
 /*

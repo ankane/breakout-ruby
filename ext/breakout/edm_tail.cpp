@@ -19,7 +19,7 @@ struct Information {
   int min_size;
   int b;
 
-  Information(int, int);
+  Information(int bb, int m);
 };
 
 Information::Information(int bb, int m) {
