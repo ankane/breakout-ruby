@@ -66,7 +66,8 @@ double GetQuantile(std::vector<double>& x, double quant) {
       i = j;
       u = (l + u) / 2;
     } else if (x.at(j) < k) { // Not enough elements in node's left child's subtree, move to right child
-      k -= x.at(j);
+      // TODO check cast
+      k -= static_cast<int>(x.at(j));
       i = j + 1;
       l = (l + u) / 2;
     }

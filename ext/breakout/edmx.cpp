@@ -59,7 +59,8 @@ std::vector<int> EDMX(const std::vector<double>& Z, int min_size = 24, double al
 
   std::vector<int> ret;
   if (stat_best > 0) {
-    ret.push_back(t1);
+    // TODO check cast
+    ret.push_back(static_cast<int>(t1));
   }
   return ret;
 }
